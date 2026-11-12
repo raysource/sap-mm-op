@@ -1,0 +1,124 @@
+/* SAP GUI 8.10 (Horizon) 高度仿真器样式：与 main.css 的 .tbtn/.alv/.gbox/.frow 共用词汇 */
+body.sim{margin:0;background:#e7eaec;font:13px/1.6 -apple-system,"Helvetica Neue","PingFang SC","Hiragino Sans","Yu Gothic UI",sans-serif;color:#131e29}
+.simwrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:0;height:100vh;overflow:hidden}
+.simstage{padding:12px 16px;overflow:hidden;display:flex;flex-direction:column;height:100vh}
+
+/* ---------- 窗口 ---------- */
+.sapwin{min-width:760px;max-width:1120px;margin:0 auto;background:#fff;border:1px solid #b9c2c9;
+  border-radius:8px;overflow:hidden;box-shadow:0 12px 34px rgba(19,30,41,.18);position:relative;
+  display:flex;flex-direction:column;height:calc(100vh - 24px);width:100%}
+.sap-title{display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;background:#0051b0;color:#fff;font-size:12.5px;font-weight:600}
+.sap-title .bk{width:22px;height:22px;border-radius:4px;border:0;background:transparent;color:#fff;cursor:pointer;font-size:15px;line-height:1}
+.sap-title .bk:hover{background:rgba(255,255,255,.18)}
+.sap-title .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sap-title .bts{display:flex;gap:1px;align-items:center}
+.sap-title .bts i{width:26px;height:20px;border-radius:2px;display:inline-block;position:relative;opacity:.9}
+.sap-title .bts i::before{position:absolute;inset:0;text-align:center;font:11px/20px "Segoe UI",sans-serif;color:#fff}
+.sap-title .bts i.mi::before{content:"—"}
+.sap-title .bts i.mz::before{content:"▢"}
+.sap-title .bts i.mc::before{content:"✕"}
+.sap-title .bts i:hover{background:rgba(255,255,255,.2)}
+
+.sap-menu{display:flex;align-items:center;gap:2px;height:27px;padding:0 8px;background:#fff;border-bottom:1px solid #e7ebee;font-size:12px}
+.sap-menu button{background:none;border:0;font:inherit;color:#26323c;padding:2px 7px;border-radius:4px;cursor:pointer}
+.sap-menu button:hover{background:#eef4fb}
+.sap-menu button::first-letter{text-decoration:underline}
+.sap-menu .sys{margin-left:auto;font-size:10.5px;color:#556b81;padding-right:4px}
+.sap-menu .dd{position:absolute;top:61px;left:12px;background:#fff;border:1px solid #9aa5ae;border-radius:4px;
+  box-shadow:0 8px 22px rgba(19,30,41,.2);padding:4px 0;z-index:40;min-width:180px;display:none}
+.sap-menu .dd.open{display:block}
+.sap-menu .dd button{display:block;width:100%;text-align:left;padding:4px 12px;border-radius:0;font-size:12px}
+.sap-menu .dd button:hover{background:#e7f1fd}
+.sap-menu .dd .sep2{height:1px;background:#e7ebee;margin:3px 0}
+
+.sap-tool{display:flex;align-items:center;gap:5px;height:42px;padding:0 9px;background:#fff;border-bottom:1px solid #e7ebee}
+.cmdbox{position:relative;display:flex;align-items:center;min-width:210px}
+.cmdbox input{width:190px;height:26px;border:1px solid #9aa5ae;border-radius:4px;padding:0 22px 0 8px;
+  font:12px/24px "SF Mono",Menlo,Consolas,monospace;color:#131e29}
+.cmdbox input:focus{outline:2px solid #0070f2;outline-offset:-1px;border-color:#0070f2}
+.cmdbox .chev{position:absolute;right:6px;color:#66757f;font-size:10px;pointer-events:none}
+.sep{width:1px;height:20px;background:#dfe4e8;margin:0 3px}
+.spacer{flex:1}
+.tbtn[disabled]{opacity:.35;cursor:default}
+.langbtn{height:24px;border:1px solid #9aa5ae;border-radius:12px;background:#fff;font-size:11.5px;
+  padding:0 10px;cursor:pointer;color:#0a4fa0}
+.langbtn:hover{background:#eef4fb}
+
+.sap-screen{padding:12px 14px 16px;background:#fff;position:relative;min-height:0;overflow:auto;flex:1 1 auto}
+html[lang="ja"] .sap-menu button::first-letter{text-decoration:none}
+.sap-status{display:flex;align-items:center;gap:7px;height:23px;padding:0 12px;background:#f2f4f6;
+  border-top:1px solid #e7ebee;font-size:11.5px;color:#26323c}
+.sap-status i{width:12px;height:12px;border-radius:50%;background:#9aa5ae;flex:0 0 12px}
+.sap-status.ok i{background:#2a9d5c}.sap-status.err i{background:#d9534f}
+.sap-status.warn i{background:#e0a100}.sap-status.info i{background:#0a70f2}
+.sap-status .code{font:11px "SF Mono",Menlo,monospace;color:#556b81;margin-left:auto}
+
+/* 遮罩 + 对话框 */
+.sap-screen.dim::before{content:"";position:absolute;inset:0;background:rgba(19,30,41,.16);z-index:5}
+.sapwin:has(.dlg) .sap-menu,.sapwin:has(.dlg) .sap-tool{opacity:.55}
+.dlg{position:relative;z-index:6;max-width:560px;margin:40px auto;background:#fff;border:1px solid #8a959e;
+  border-radius:6px;box-shadow:0 14px 38px rgba(19,30,41,.3);overflow:hidden}
+.dlg .dh{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#eef1f3;
+  border-bottom:1px solid #d5dadd;font-size:12px;font-weight:600}
+.dlg .db{padding:12px 14px;font-size:12.5px;line-height:1.7}
+.dlg .df{display:flex;gap:8px;justify-content:flex-end;padding:9px 12px;border-top:1px solid #e7ebee;background:#f7f9fa}
+.gbtn{min-width:78px;padding:4px 12px;font-size:12px;border:1px solid #9aa5ae;border-radius:4px;background:#fff;cursor:pointer;color:#131e29}
+.gbtn:hover{background:#f0f4f8}
+.gbtn.primary{border-color:#0070f2;background:#eaf3fe;color:#0a4fa0;font-weight:600}
+.gbtn.danger{border-color:#c0392b;color:#a5322e}
+
+/* 输入 */
+.sap-in{height:24px;border:1px solid #b9c2c9;border-radius:3px;padding:0 6px;background:#fff;
+  font:12px/22px "SF Mono",Menlo,Consolas,monospace;color:#131e29;width:130px}
+.sap-in:focus{outline:2px solid #0070f2;outline-offset:-1px;border-color:#0070f2}
+.sap-in.readonly{background:#eef0f2;color:#556b81;border-color:#d5dadd}
+.sap-in.miss{box-shadow:inset 0 -2px 0 #c0392b}
+.sap-in.w60{width:64px}.sap-in.w80{width:84px}.sap-in.w110{width:114px}.sap-in.w160{width:164px}.sap-in.w220{width:224px}
+select.sap-in{width:auto;min-width:110px;font-family:inherit;padding:0 4px}
+.sap-screen .frow{margin:5px 0}
+.sap-screen .flabel{width:186px;font-size:12.5px;color:#33414d}
+.sap-screen .frow.req .flabel::before{content:"✓";color:#c0392b;font-size:10px;margin-right:3px}
+.sap-screen .hint{font-size:11.5px;color:#7d8f9e}
+.sap-screen .gbox{margin:12px 0}
+.sap-screen .gleg{font-size:12px}
+.sap-screen h2{font-size:14.5px;margin:16px 0 8px;border-bottom:1px solid #e7ebee;padding-bottom:5px}
+.sap-screen .tctrl td input{width:100%;height:22px;border:1px solid transparent;background:transparent;font:12px "SF Mono",Menlo,monospace}
+.sap-screen .tctrl td input:focus{border-color:#0070f2;background:#fff;outline:none}
+.sap-screen .tctrl tr.cur td{background:#ebf8ff;box-shadow:inset 2px 0 0 #0070f2}
+.sap-screen .alv tr.sel td{background:#ebf8ff;box-shadow:inset 2px 0 0 #0070f2}
+.sap-screen table{font-size:12px}
+.sap-screen th{background:#e9edf1;font-size:11.5px;font-weight:600;padding:4px 7px}
+.sap-screen .alv th{background:#e6eef7}
+.sap-screen td{padding:3px 7px;vertical-align:middle}
+.sap-screen td.num{text-align:right;font-family:"SF Mono",Menlo,monospace}
+.tree{border:1px solid #cfd6dc;border-radius:4px;padding:8px 10px;background:#fff;font-size:12.5px}
+.tree .node{display:flex;align-items:center;gap:6px;padding:2px 4px;border-radius:3px;cursor:pointer}
+.tree .node:hover{background:#eef4fb}
+.tree .node.on{background:#e7f1fd}
+.tree .tw{width:12px;color:#556b81;font-size:10px}
+.tree .kids{margin-left:16px}
+.tree .tico{width:14px;height:14px;border-radius:2px;background:#e8b64c;display:inline-block}
+.tree .tico.doc{background:#7aa7d8}
+
+/* 右侧任务面板 */
+.simside{background:#fbfcfd;border-left:1px solid #d5dadd;padding:16px 14px;overflow:auto}
+.simside h3{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#556b81;margin:14px 0 6px}
+.simside h2{font-size:15px;margin:0 0 4px}
+.simside .step{display:flex;gap:8px;align-items:flex-start;padding:6px 4px;border-radius:5px;font-size:12.5px;line-height:1.45}
+.simside .step.done{color:#2a9d5c}
+.simside .step .dot{width:8px;height:8px;border-radius:50%;background:#cfd6dc;margin-top:6px;flex:0 0 8px}
+.simside .step.done .dot{background:#2a9d5c}
+.simside .kv{display:flex;justify-content:space-between;font-size:12px;color:#556b81;padding:2px 0}
+.simside .kv b{color:#131e29;font-weight:600}
+.simside .btnrow{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.simside .mini{font-size:11.5px;color:#7d8f9e;line-height:1.6}
+.simside code{font-size:11px;background:#eef0f2;padding:0 4px;border-radius:3px}
+
+/* 窄屏：任务面板收到下面 */
+@media screen and (max-width:1180px){
+  .simwrap{grid-template-columns:1fr;height:auto;overflow:visible}
+  .simside{border-left:0;border-top:1px solid #d5dadd}
+  .sapwin{min-width:700px}
+  .sapstage{overflow-x:auto}
+}
+@media print{.simside,.sap-tool,.sap-menu{display:none}}

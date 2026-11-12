@@ -1,0 +1,177 @@
+/* MM 课程站补充层：课程头图、章节导航、引导实操布局、自测、T-code 表
+   与 main.css 共用 token；不覆盖 GUI 还原组件（.win/.gbox/.alv…） */
+
+/* ---------- 顶部课程条 ---------- */
+.coursebar{display:flex;align-items:center;gap:12px;height:56px;padding:0 18px;background:#00396b;color:#fff}
+.coursebar .cb-logo{font-weight:700;letter-spacing:.06em;font-size:14px;white-space:nowrap}
+.coursebar .cb-tag{font-size:11.5px;background:rgba(255,255,255,.14);border-radius:10px;padding:1px 9px;white-space:nowrap}
+.coursebar .cb-env{font-size:11.5px;color:#bcd3ea;white-space:nowrap}
+.coursebar .cb-prog{margin-left:auto;display:flex;align-items:center;gap:9px;font-size:11.5px;color:#d6e6f6}
+.coursebar .bar{width:120px;height:6px;background:rgba(255,255,255,.22)}
+.coursebar .bar i{background:#66b2ff}
+.coursebar a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.35);
+  border-radius:12px;padding:2px 10px;font-size:11.5px;white-space:nowrap}
+.coursebar a:hover{background:rgba(255,255,255,.14)}
+.coursebar .langsw a{border:0;color:#bcd3ea;padding:1px 6px}
+.coursebar .langsw a.active,.coursebar .langsw a.on{background:rgba(255,255,255,.2);color:#fff;border-radius:10px;font-weight:600}
+
+@media screen and (max-width:900px){
+  .coursebar{height:auto;flex-wrap:wrap;padding:8px 12px;gap:8px}
+  .coursebar .cb-env{display:none}
+  .coursebar .cb-prog{margin-left:0;order:3}
+  .coursebar .langsw{margin-left:auto}
+}
+@media screen and (max-width:620px){
+  .coursebar .cb-tag{display:none}
+  .hero{padding:20px 18px;border-radius:10px}
+  .hero h1{font-size:21px}
+  .hero .hstats{gap:16px}
+  .hero .hbtns a{padding:7px 12px;font-size:12.5px}
+  .labwrap{padding:8px}
+}
+
+/* ---------- 首页 hero ---------- */
+.hero{background:linear-gradient(135deg,#00396b,#0a6ed1 70%,#2f8ee0);color:#fff;border-radius:14px;
+  padding:26px 28px;margin:0 0 18px}
+.hero h1{color:#fff;font-size:26px;margin:0 0 8px;line-height:1.35}
+.hero p{color:#e3f0fb;margin:.35em 0;font-size:14px;max-width:78ch}
+.hero .hstats{display:flex;flex-wrap:wrap;gap:26px;margin-top:16px;font-size:12.5px;color:#cfe4f7}
+.hero .hstats span{display:flex;flex-direction:column;gap:1px;min-width:96px;max-width:210px}
+.hero .hstats b{font-size:20px;color:#fff;line-height:1.15;letter-spacing:.01em}
+.hero .hbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.hero .hbtns a{display:inline-block;padding:8px 16px;border-radius:8px;font-size:13.5px;font-weight:600;
+  text-decoration:none;background:#fff;color:#0a4fa0}
+.hero .hbtns a.ghost{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.5)}
+
+/* ---------- 章节前后导航 ---------- */
+.pn{display:flex;justify-content:space-between;gap:12px;margin-top:34px;padding-top:14px;
+  border-top:1px solid var(--line);font-size:13.5px}
+.pn a{text-decoration:none;color:#0a4fa0}
+.markdone{margin:26px 0 0;padding:9px 16px;border:1px solid #9dc4e8;background:#fff;color:#0a4fa0;
+  border-radius:7px;font-size:13.5px;cursor:pointer}
+.markdone:hover{background:#eef4fb}
+
+/* ---------- 引导实操布局 ---------- */
+body.labpage{background:#eef1f4}
+.labtop{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;background:#fff;
+  border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.labtop h1{font-size:15.5px;margin:0}
+.labtop .lp{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.labtop .bar{width:130px;height:7px;background:#e3e7ea}
+.labtop .bar i{background:#2a9d5c}
+.labtop button{font-size:12px;padding:4px 10px;border:1px solid var(--line);background:#fff;
+  border-radius:6px;cursor:pointer;color:#26323c}
+.labtop button:hover{background:#eef4fb}
+.labwrap{display:grid;grid-template-columns:250px minmax(0,1fr) 340px;gap:12px;padding:12px;align-items:start}
+.pane{background:#fff;border:1px solid var(--line);border-radius:10px}
+#tasklist{padding:8px;max-height:calc(100vh - 90px);overflow:auto;position:sticky;top:66px}
+#tasklist .lg-head{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  margin:12px 4px 5px;font-weight:600}
+#tasklist .ltask{display:flex;gap:8px;align-items:flex-start;width:100%;text-align:left;background:none;
+  border:0;border-radius:7px;padding:7px 7px;cursor:pointer;font-family:inherit}
+#tasklist .ltask:hover{background:#f2f7fc}
+#tasklist .ltask.on{background:#e7f1fd}
+#tasklist .ltask.done .ltxt b{color:#6b7c8a;text-decoration:line-through}
+#tasklist .lbox{width:16px;height:16px;border:1px solid #b8c3cc;border-radius:4px;flex:0 0 16px;
+  font:11px/15px sans-serif;text-align:center;color:#2a9d5c;margin-top:2px}
+#tasklist .ltask.done .lbox{background:#eaf7ee;border-color:#8fccA5}
+#tasklist .ltxt{min-width:0}
+#tasklist .ltxt b{display:block;font-size:12.5px;line-height:1.42;font-weight:500;color:#1f2c37}
+#tasklist .ltxt i{font-style:normal;font:10.5px/1.5 "SF Mono",Menlo,monospace;color:#7d8f9e}
+.simcol{min-width:0}
+.framewrap{border:1px solid #b9c2c9;border-radius:10px;overflow:hidden;background:#e7eaec;box-shadow:0 6px 20px rgba(19,30,41,.08)}
+.framewrap .fhead{display:flex;align-items:center;gap:8px;padding:6px 10px;background:#f7f9fa;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+.framewrap iframe{display:block;width:100%;height:calc(100vh - 150px);min-height:620px;border:0}
+#coach{padding:14px 16px;position:sticky;top:66px;max-height:calc(100vh - 90px);overflow:auto}
+#coach .ctop{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);letter-spacing:.08em}
+#coach .ctcode{margin-left:auto;font:11.5px/1.6 "SF Mono",Menlo,monospace;background:#eef4fb;color:#0a4fa0;
+  border-radius:4px;padding:0 6px;letter-spacing:0}
+#coach h3{font-size:15px;margin:6px 0 4px}
+#coach .cgoal{font-size:13px;color:#33414d;line-height:1.7;margin:4px 0 10px}
+#coach .clabel{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  margin:14px 0 2px;font-weight:600}
+#coach ol.steps{margin:6px 0}
+#coach ol.steps li{font-size:12.5px;line-height:1.6;padding:6px 0 6px 32px}
+#coach ol.steps li::before{width:20px;height:20px;font-size:11px;line-height:20px;top:7px}
+#coach .cverify{font-size:12.5px;color:#2a6b45;background:#f2faf5;border-left:3px solid #2a9d5c;
+  padding:6px 10px;border-radius:0 6px 6px 0;margin:4px 0}
+#coach .crow{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+#coach .crow .gbtn{text-decoration:none;font-size:12px}
+#coach .ctip{font-size:11px;color:#7d8f9e;line-height:1.6;margin-top:10px}
+#coach .ckeys{background:#f5f8fb;border:1px dashed #cfe0f2;border-radius:6px;padding:6px 9px;color:#2b6ca8;margin-top:8px}
+@media screen and (max-width:1400px){
+  .labwrap{grid-template-columns:220px minmax(0,1fr) 310px}
+}
+@media screen and (max-width:1180px){
+  .labwrap{grid-template-columns:1fr}
+  #tasklist,#coach{position:static;max-height:none}
+  #tasklist{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px}
+  #tasklist .lg-head{grid-column:1/-1}
+  .framewrap iframe{height:70vh}
+}
+
+/* ---------- 收藏夹树（GUI 还原用） ---------- */
+.tree{border:1px solid #cfd6dc;border-radius:4px;padding:8px 10px;background:#fff;font-size:12.5px}
+.tree .node{display:flex;align-items:center;gap:6px;padding:2px 4px;border-radius:3px}
+.tree .node:hover{background:#eef4fb}
+.tree .tw{width:12px;flex:0 0 12px;color:#556b81;font-size:10px;text-align:center}
+.tree .tico{width:13px;height:13px;border-radius:2px;background:#e8b64c;flex:0 0 13px}
+.tree .tico.doc{background:#7aa7d8}
+.tree .node b{font:600 12px/1.5 "SF Mono",Menlo,monospace;color:#26323c}
+
+/* 下载链接（Excel / PDF） */
+p.dl{margin:16px 0}
+p.dl a{display:inline-block;padding:9px 16px;border:1px solid #9dc4e8;border-radius:8px;background:#f2f8fe;
+  color:#0a4fa0;text-decoration:none;font-size:13.5px;font-weight:600}
+p.dl a:hover{background:#e3effd;border-color:#6aa9e0}
+p.dl a::before{content:"⤓";margin-right:7px;font-weight:400}
+
+/* ---------- 单据链 ---------- */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:16px 0}
+.chain .cn{padding:7px 11px;border:1px solid #b9cfe6;border-radius:7px;background:#f4f9fe;font-size:12.5px;
+  color:#0a4fa0;line-height:1.35}
+.chain .cn b{display:block;font:600 11.5px/1.4 "SF Mono",Menlo,monospace;color:#2b6ca8}
+.chain .cn span{display:block;font-size:11px;color:#5b7893}
+.chain .ar{align-self:center;color:#8aa0b3;font-size:14px}
+
+/* ---------- T-code 表 ---------- */
+.tcode-table td:first-child{white-space:nowrap}
+.copyc{font:12px/1.6 "SF Mono",Menlo,monospace;background:#eef4fb;color:#0a4fa0;border:1px solid #cfe0f2;
+  border-radius:4px;padding:0 6px;cursor:pointer}
+.copyc:hover{background:#dceafb}
+.copyc.ok{background:#eaf7ee;border-color:#9ed3b1;color:#2a6b45}
+
+/* ---------- 自测 ---------- */
+.quiz{margin:14px 0}
+.quiz .q{border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin-bottom:10px;background:#fff}
+.quiz .q p{margin:0 0 8px;font-size:13.5px}
+.quiz .q button{display:block;width:100%;text-align:left;margin:4px 0;padding:6px 10px;border:1px solid var(--line);
+  background:#fbfcfd;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit}
+.quiz .q button:hover{background:#eef4fb}
+.quiz .q button.right{background:#eaf7ee;border-color:#9ed3b1;color:#1f6b42;font-weight:600}
+.quiz .q button.wrong{background:#fdecec;border-color:#e6b3b1;color:#8f2723}
+.quiz .score{font-size:13px;color:#33414d;margin-top:8px}
+
+/* ---------- 字段表胶囊 ---------- */
+td .pill{margin-right:2px}
+.fld{font-size:12.5px}
+.fld code{background:#eef0f2;border-radius:3px;padding:0 4px;font-size:11.5px}
+
+/* 打印：课程页 A4 横向，清单页纵向 */
+@media print{
+  .coursebar,.hero .hbtns,.labtop button,.pn,.markdone{display:none!important}
+  .hero{background:#fff;color:#000;border:1px solid #ccc}
+  .hero h1,.hero p,.hero .hstats,.hero .hstats b{color:#000}
+  .labwrap{display:block}
+  #tasklist,#coach{display:none}
+  .framewrap iframe{display:none}
+}
+
+/* 打印：标题不要与后面的图分居两页；表格行不要被劈开 */
+@media print{
+  h1,h2,h3{break-after:avoid-page;page-break-after:avoid}
+  figure.gui{break-inside:avoid;page-break-inside:avoid}
+  table{break-inside:auto}
+  tr,li{break-inside:avoid;page-break-inside:avoid}
+  .note,.card{break-inside:avoid;page-break-inside:avoid}
+}

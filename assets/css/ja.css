@@ -1,0 +1,128 @@
+/* 日本語版のみに適用する視覚設計
+   方針：白／生成り系の地、細い罫線、低彩度の藍一色、字間 .02em、行間 1.95、
+        角丸は 2〜4px、影は使わない、アイコンより余白で情報を整理する。 */
+
+:root{
+  --ja-ink:#2b2b2b; --ja-sub:#6b7280; --ja-line:#e3e6ea; --ja-line2:#f0f2f5;
+  --ja-navy:#1b4f8a; --ja-navy-d:#16406f; --ja-paper:#fcfcfa; --ja-th:#f7f8fa;
+}
+html{background:var(--ja-paper)}
+body{
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP",
+    -apple-system,"Helvetica Neue",sans-serif;
+  font-size:14.5px; line-height:1.95; letter-spacing:.02em; color:var(--ja-ink); background:var(--ja-paper);
+  font-feature-settings:"palt" 1;
+}
+strong,b{font-weight:600}
+p{margin:.95em 0}
+a{color:var(--ja-navy);text-underline-offset:2px}
+
+/* ---------- 見出し ---------- */
+h1{font-size:24px;font-weight:600;letter-spacing:.05em;line-height:1.6;margin:.2em 0 .5em}
+h2{font-size:17px;font-weight:600;letter-spacing:.04em;margin:2.8em 0 .9em;padding-bottom:9px;
+  border-bottom:1px solid var(--ja-line)}
+h2::before{content:"";display:inline-block;width:3px;height:14px;background:var(--ja-navy);
+  margin-right:11px;vertical-align:-1px}
+h3{font-size:15px;font-weight:600;letter-spacing:.03em;margin:1.9em 0 .5em}
+.lead{font-size:14.5px;line-height:2.05;color:#404040}
+.crumb{font-size:11.5px;color:#8a8f96;letter-spacing:.08em;margin-bottom:12px}
+
+/* ---------- 表 ---------- */
+table{border-collapse:separate;border-spacing:0;border-top:1px solid #d8dde3;background:#fff;font-size:13px}
+th,td{border:0;border-bottom:1px solid var(--ja-line);padding:9px 12px;vertical-align:top}
+th{background:var(--ja-th);font-weight:600;color:#3a3a3a;font-size:12.5px;letter-spacing:.06em}
+td.n{font-variant-numeric:tabular-nums}
+tr:hover td{background:#fcfdfe}
+.pill{border-radius:2px;font-size:11px;letter-spacing:.06em;padding:1px 7px;background:#f3f5f8;color:#5a6b7c}
+.pill.req{background:#fbf1ef;color:#a4442f}
+.pill.sys{background:#f3f5f8;color:#8a8f96}
+.emsg{background:#fdf4f2;color:#9d3b26;border-radius:2px;font-size:12px}
+
+/* ---------- 注記 ---------- */
+.note{border-left:3px solid #98b0c9;background:#f8fafc;border-radius:2px;padding:12px 16px;margin:1.5em 0;
+  font-size:13.5px;line-height:1.9}
+.note.warn{border-color:#c8a24a;background:#fdfaf3}
+.note.err{border-color:#b7412b;background:#fdf6f3}
+.note.ok{border-color:#4b8062;background:#f6faf7}
+.note>b:first-child{display:block;margin-bottom:3px;font-size:13.5px;letter-spacing:.03em}
+.note b{font-weight:600}
+
+/* ---------- カード ---------- */
+.cards{gap:14px}
+.card{border:1px solid var(--ja-line);border-radius:3px;box-shadow:none;padding:15px 17px;background:#fff}
+.card:hover{border-color:#b9c8d6;box-shadow:none;background:#fdfefe}
+.card b{font-size:14px;font-weight:600;letter-spacing:.02em;margin-bottom:5px}
+.card span{font-size:12.5px;color:var(--ja-sub)}
+.card .tcode{background:#f3f5f8;color:#5a6b7c;border-radius:2px;font-size:11px;letter-spacing:.04em}
+
+/* ---------- 手順リスト ---------- */
+ol.steps li{padding:11px 0 11px 40px;border-bottom:1px solid var(--ja-line2);font-size:13.8px;line-height:1.9}
+ol.steps li::before{background:#f2f5f8;color:var(--ja-navy);border:1px solid #d9e1ea;
+  width:23px;height:23px;line-height:21px;font-size:11.5px;font-weight:600}
+ol.steps .k{background:#f5f6f8;border:1px solid var(--ja-line);border-radius:2px;color:#4a4a4a;
+  font-size:11px;letter-spacing:.02em}
+ul.check li{padding:8px 0 8px 26px;border-bottom:1px solid var(--ja-line2);font-size:13.5px}
+ul.check li::before{content:"□";color:#a7aeb6;font-size:14px}
+ul.check li.done::before{content:"■";color:#4b8062}
+ul.check li.done{color:#9aa3ac;text-decoration:none}
+
+/* ---------- 上帯 ---------- */
+.topbar{height:50px;background:#fff;border-bottom:1px solid var(--ja-line);box-shadow:none}
+.topbar .logo{font-size:13px;font-weight:600;letter-spacing:.12em;color:var(--ja-navy)}
+.topbar .env{font-size:10.5px;color:#8a8f96;letter-spacing:.04em}
+.langsw a{border-radius:2px;border-color:transparent;color:#8a8f96;font-size:11.5px;padding:3px 8px;letter-spacing:.04em}
+.langsw a.active{background:#f1f5fa;border-color:#dfe6ee;color:var(--ja-navy)}
+.simlink{border-radius:2px;background:var(--ja-navy);border-color:var(--ja-navy);color:#fff;
+  font-weight:500;font-size:11.5px;letter-spacing:.06em;padding:4px 11px}
+.simlink:hover{background:var(--ja-navy-d)}
+.progwrap{font-size:11.5px;color:#8a8f96;letter-spacing:.04em}
+.bar{width:110px;height:3px;background:#e8ebef;border-radius:0}
+.bar i{background:var(--ja-navy)}
+
+/* ---------- サイド ---------- */
+aside{background:#fafaf8;border-right:1px solid #e8eaee;padding:22px 16px}
+.side-head{font-size:10.5px;letter-spacing:.2em;color:#8a8f96;margin:20px 0 8px;text-transform:none}
+.snav{padding:7px 10px;border-radius:0;border-left:2px solid transparent;font-size:12.8px;color:#3d3d3d;
+  letter-spacing:.03em;line-height:1.6}
+.snav:hover{background:#f1f4f7}
+.snav.active{background:#f1f5fa;color:var(--ja-navy);border-left-color:var(--ja-navy);
+  font-weight:600;border-radius:0}
+.dot{width:6px;height:6px;flex:0 0 6px;background:#d3d8de}
+.dot.done{background:#4b8062}
+main{padding:30px 40px 80px}
+
+/* ---------- 図 ---------- */
+figure.gui{margin:1.9em 0 .5em}
+figcaption{font-size:12px;color:var(--ja-sub);line-height:1.9;margin-top:8px;letter-spacing:.01em}
+figcaption b{color:#3a3a3a;font-weight:600}
+
+/* ---------- 文書フッタ ---------- */
+.docfoot{margin-top:56px;padding-top:16px;border-top:1px solid var(--ja-line);
+  font-size:11px;color:#9aa3ac;letter-spacing:.06em;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media screen and (max-width:1230px){
+  main{padding:20px 18px 60px}
+  .topbar{height:auto;padding:9px 14px}
+}
+
+/* ---------- 実機演習（シミュレータ）の日本語モード ---------- */
+html[data-ed="ja"] body.sim{
+  background:#f4f4f1;
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP",sans-serif;
+  letter-spacing:.02em;
+}
+html[data-ed="ja"] body.sim .topbar{height:50px;border-bottom:1px solid var(--ja-line);background:#fff}
+html[data-ed="ja"] body.sim .topbar .logo{color:var(--ja-navy);font-weight:600;letter-spacing:.1em;font-size:13px}
+html[data-ed="ja"] body.sim .topbar .env{font-size:10.5px;color:#8a8f96}
+html[data-ed="ja"] body.sim .simside{background:#fbfbf9;border-left:1px solid #e8eaee;padding:20px 16px}
+html[data-ed="ja"] body.sim .simside h2{font-size:15px;letter-spacing:.06em;font-weight:600;margin:0 0 8px}
+html[data-ed="ja"] body.sim .simside h3{font-size:10.5px;letter-spacing:.2em;color:#8a8f96;
+  margin:20px 0 8px;font-weight:600;text-transform:none}
+html[data-ed="ja"] body.sim .simside .step{font-size:12.5px;line-height:1.7;padding:7px 4px;border-radius:0}
+html[data-ed="ja"] body.sim .simside .kv{font-size:11.5px;color:#6b7280}
+html[data-ed="ja"] body.sim .simside .mini{font-size:11.5px;color:#8a8f96;line-height:1.9}
+html[data-ed="ja"] body.sim .gbtn{border-radius:2px;font-size:11.5px;letter-spacing:.04em;border-color:#c7cfd7}
+html[data-ed="ja"] body.sim .gbtn.primary{background:var(--ja-navy);border-color:var(--ja-navy);color:#fff}
+html[data-ed="ja"] body.sim .langbtn{border-radius:2px;font-size:11px}
+html[data-ed="ja"] body.sim .simstage{background:#f4f4f1}
+@media print{.docfoot{display:none}}

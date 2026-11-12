@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{lang}" data-ed="{lang}" data-root="{root}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>{title}</title>
+<link rel="stylesheet" href="{root}assets/css/main.css?v={ver}">
+<link rel="stylesheet" href="{root}assets/css/doc.css?v={ver}">
+{css_extra}
+</head>
+<body class="labpage">
+
+<div class="labtop">
+  <a class="gbtn" href="{root}index.html" style="text-decoration:none;padding:4px 10px;font-size:12px">{back}</a>
+  <h1>{labtitle}</h1>
+  <div class="lp">
+    <span id="labProg">0 / 17</span>
+    <span class="bar"><i id="labBar"></i></span>
+  </div>
+  <button id="btnReset"></button>
+  <button id="btnResetData"></button>
+  <span class="langsw">{langs}</span>
+</div>
+
+<div class="labwrap">
+  <aside class="pane" id="tasklist"></aside>
+
+  <section class="simcol">
+    <div class="framewrap">
+      <div class="fhead"><span>●</span><span>{simhint}</span><span style="margin-left:auto"><a href="{root}sim.html" target="_blank">{popout}</a></span></div>
+      <iframe id="simframe" src="{root}sim.html?embed=1&lang={lang}&v={ver}" title="SAP GUI 8.10 simulator"></iframe>
+    </div>
+  </section>
+
+  <aside class="pane" id="coach"></aside>
+</div>
+
+<script src="{root}assets/js/lab.js?v={ver}"></script>
+</body>
+</html>
