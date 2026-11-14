@@ -6,13 +6,13 @@
   const UI = {
     zh: { mark: '标记本页完成', done: '✓ 本页已完成（点击取消）', note: '演练数据', env: '客户端 110 · 1710 / 1710 / 001',
       side: '课程目录', right: '回答正确', wrong: '再想想：先回章节看对应表格', score: '得分',
-      copy: '已复制', lab: '引导实操 ▶' },
+      copy: '已复制', lab: '引导实操 ▶', answered: '已答' },
     en: { mark: 'Mark page complete', done: '✓ Page complete (click to undo)', note: 'Exercise data', env: 'Client 110 · 1710 / 1710 / 001',
       side: 'Contents', right: 'Correct', wrong: 'Not quite — check the chapter table', score: 'Score',
-      copy: 'Copied', lab: 'Guided lab ▶' },
+      copy: 'Copied', lab: 'Guided lab ▶', answered: 'answered' },
     ja: { mark: 'このページを完了にする', done: '✓ 完了（クリックで取消）', note: '演習データ', env: 'クライアント 110 · 1710 / 1710 / 001',
       side: '目次', right: '正解', wrong: 'もう一度：該当章の表を確認', score: '得点',
-      copy: 'コピー済', lab: 'ガイド演習 ▶' }
+      copy: 'コピー済', lab: 'ガイド演習 ▶', answered: '回答済' }
   }[LANG] || {};
   const P_KEY = 'gui810.progress.' + LANG + '.v1';
   const C_KEY = 'gui810.check.' + LANG + '.v1';
@@ -99,22 +99,37 @@
   });
 
   /* ---- 自测 ---- */
-  document.querySelectorAll('.quiz .q').forEach(function (q) {
-    const ans = Number(q.dataset.ok);
-    const scoreEl = document.getElementById('quizScore');
-    q.querySelectorAll('button').forEach(function (b, i) {
-      b.addEventListener('click', function () {
-        if (q.dataset.answered) return;
-        q.dataset.answered = '1';
-        q.dataset.got = (i === ans) ? '1' : '0';
-        q.querySelectorAll('button')[ans].classList.add('right');
-        if (i !== ans) b.classList.add('wrong');
-        q.querySelectorAll('button').forEach(function (x) { x.disabled = true; });
-        const all = document.querySelectorAll('.quiz .q');
-        const got = Array.prototype.filter.call(all, function (x) { return x.dataset.got === '1'; }).length;
-        const answered = Array.prototype.filter.call(all, function (x) { return !!x.dataset.answered; }).length;
-        if (scoreEl) scoreEl.textContent = UI.score + ' ' + got + ' / ' + all.length +
-          (answered < all.length ? '（已答 ' + answered + '）' : '');
+  function quizScore(box) {
+    const qs = box.querySelectorAll('.q');
+    const got = Array.prototype.filter.call(qs, function (x) { return x.dataset.got === '1'; }).length;
+    const ans = Array.prototype.filter.call(qs, function (x) { return !!x.dataset.answered; }).length;
+    const el = box.querySelector('.score');
+    if (el) el.textContent = UI.score + ' ' + got + ' / ' + qs.length +
+      (ans < qs.length ? '（' + UI.answered + ' ' + ans + '）' : '');
+    const tot = document.getElementById('quizTotal');
+    if (tot) {
+      const all = document.querySelectorAll('.quiz .q');
+      const g = Array.prototype.filter.call(all, function (x) { return x.dataset.got === '1'; }).length;
+      const a = Array.prototype.filter.call(all, function (x) { return !!x.dataset.answered; }).length;
+      tot.textContent = g + ' / ' + all.length + '（' + UI.answered + ' ' + a + '）';
+      const bar = document.getElementById('quizBar');
+      if (bar) bar.style.width = (all.length ? g / all.length * 100 : 0) + '%';
+    }
+  }
+  document.querySelectorAll('.quiz').forEach(function (box) {
+    box.querySelectorAll('.q').forEach(function (q) {
+      const ans = Number(q.dataset.ok);
+      q.querySelectorAll('button').forEach(function (b, i) {
+        b.addEventListener('click', function () {
+          if (q.dataset.answered) return;
+          q.dataset.answered = '1';
+          q.dataset.got = (i === ans) ? '1' : '0';
+          q.querySelectorAll('button')[ans].classList.add('right');
+          if (i !== ans) b.classList.add('wrong');
+          q.querySelectorAll('button').forEach(function (x) { x.disabled = true; });
+          q.classList.add('answered');
+          quizScore(box);
+        });
       });
     });
   });

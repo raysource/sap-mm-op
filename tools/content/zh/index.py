@@ -106,6 +106,7 @@ PAGE = {
             {"href": "extra.html", "title": "进阶操作", "sub": "退货 122/102 · 311/261 · MRP · 月结 · 自动记账", "k": "进阶"},
             {"href": "lab.html", "title": "引导式实操", "sub": "17 个任务，内嵌 SAP GUI 8.10 仿真器，做完自动判定", "k": "实操"},
             {"href": "handbook.html", "title": "速查手册", "sub": "T-code 全表 · 报错速查 · 三语术语 · 自测", "k": "附录"},
+            {"href": "test.html", "title": "基础测试", "sub": "10 个领域 106 题 + 20 题综合卷，含解析", "k": "测试"},
             {"href": "checklist.html", "title": "验收清单", "sub": "逐项打勾 + 演练记录表，可打印", "k": "打印"},
         ]},
 

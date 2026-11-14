@@ -106,6 +106,7 @@ PAGE = {
             {"href": "extra.html", "title": "Advanced operations", "sub": "Returns 122/102 · 311/261 · MRP · month-end · automatic account determination", "k": "Advanced"},
             {"href": "lab.html", "title": "Guided lab", "sub": "17 tasks in the embedded SAP GUI 8.10 simulator, graded as you go", "k": "Lab"},
             {"href": "handbook.html", "title": "Quick reference", "sub": "Full T-code table · error lookup · trilingual glossary · self-test", "k": "Appendix"},
+            {"href": "test.html", "title": "Knowledge test", "sub": "10 domains, 106 questions + a 20-question mock, with explanations", "k": "Test"},
             {"href": "checklist.html", "title": "Acceptance checklist", "sub": "Tick each item plus a practice record sheet; printable", "k": "Print"},
         ]},
 

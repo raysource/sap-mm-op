@@ -175,3 +175,18 @@ td .pill{margin-right:2px}
   tr,li{break-inside:avoid;page-break-inside:avoid}
   .note,.card{break-inside:avoid;page-break-inside:avoid}
 }
+
+/* 题库：答完才显示解析，单组独立计分 */
+.quiz .q .why{display:none;margin:7px 0 2px;padding:8px 11px;background:#f3f9f4;border-left:3px solid #2a9d5c;font-size:12.8px;line-height:1.7;color:#26402f}
+.quiz .q.answered .why{display:block}
+.quiz .q.answered button{opacity:.85}
+.quiz .score{font-size:12.5px;color:#556b81;margin:8px 0 0}
+.quiz .score b{color:#0a4fa0}
+.totbar{display:flex;align-items:center;gap:10px;margin:10px 0 14px;font-size:13px;color:#33414d}
+.totbar .bar{width:220px;height:7px}
+@media print{
+  .quiz .q{break-inside:avoid;page-break-inside:avoid}
+  .quiz .q button::before{content:"☐ ";color:#556b81}
+  .quiz .q .why{display:none !important}
+  .totbar{display:none}
+}

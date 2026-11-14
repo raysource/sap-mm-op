@@ -24,12 +24,12 @@ def asset_ver():
     return str(int(mx))
 
 # 页面顺序与分组（分组名取各语言的 PAGE['nav']['group']）
-PAGES = ["index", "gui", "basics", "master", "flow", "nopo", "grir", "extra", "lab", "handbook", "checklist"]
+PAGES = ["index", "gui", "basics", "master", "flow", "nopo", "grir", "extra", "lab", "handbook", "test", "checklist"]
 GROUPS = {"zh": ["开始", "界面与操作", "业务基础", "主数据", "走流程", "进阶操作", "动手实操", "附录"],
           "en": ["Start", "GUI basics", "Business basics", "Master data", "Process", "Advanced", "Hands-on", "Appendix"],
           "ja": ["はじめに", "画面と操作", "業務の基礎", "マスタ", "プロセス", "応用", "実習", "付録"]}
 GROUP_OF = {"index": 0, "gui": 1, "basics": 2, "master": 3, "flow": 4, "nopo": 5, "grir": 5,
-            "extra": 5, "lab": 6, "handbook": 7, "checklist": 7}
+            "extra": 5, "lab": 6, "handbook": 7, "test": 7, "checklist": 7}
 
 I18N = {
     "zh": dict(lang="zh", title="SAP GUI 8.10 实操教程 · MM 采购与发票校验", brand="SAP GUI 8.10 实操课",
@@ -226,10 +226,12 @@ def render_block(lang, b):
     if t == "quiz":
         out = []
         for i, q in enumerate(b["items"]):
-            out.append('<div class="q" data-ok="%d"><p><b>Q%d.</b> %s</p>%s</div>' % (
+            out.append('<div class="q" data-ok="%d"><p><b>Q%d.</b> %s</p>%s%s</div>' % (
                 q["ok"], i + 1, md(q["q"]),
-                "".join("<button>%s</button>" % md(a) for a in q["a"])))
-        return '<div class="quiz">%s<p class="score" id="quizScore"></p></div>' % "".join(out)
+                "".join("<button>%s</button>" % md(a) for a in q["a"]),
+                ('<p class="why">%s</p>' % md(q["why"])) if q.get("why") else ""))
+        return '<div class="quiz"%s>%s<p class="score"></p></div>' % (
+            (' data-cat="%s"' % esc(b["cat"])) if b.get("cat") else "", "".join(out))
     if t == "defs":
         return '<table class="fld"><tr><th>%s</th><th>%s</th></tr>%s</table>' % (
             md(b["h"][0]), md(b["h"][1]),
@@ -328,7 +330,7 @@ def build_lang(lang, pages):
         content = render_blocks(lang, p["blocks"]).replace("{root}", root)
         # 打印版 PDF 链接（文件由 Chrome --print-to-pdf 生成，见 README）
         pdf = "downloads/%s%s.pdf" % (p["slug"], "" if lang == "zh" else "-" + lang)
-        if p["slug"] in ("flow", "checklist", "handbook", "gui", "nopo", "grir", "master") and os.path.exists(os.path.join(ROOT, pdf)):
+        if p["slug"] in ("flow", "checklist", "handbook", "gui", "nopo", "grir", "master", "test") and os.path.exists(os.path.join(ROOT, pdf)):
             content += ('<p class="small noprint" style="margin-top:18px">%s <a href="%s%s">%s</a></p>'
                         % (esc(t["printbar"]), root, pdf, esc(pdf.split("/")[-1])))
         htmlout = LAYOUT.format(lang=lang, root=root, title=esc(p["nav"].get("head", p["nav"]["title"])) + " · " + esc(t["brand"]),
