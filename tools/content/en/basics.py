@@ -56,7 +56,39 @@ PAGE = {
          "x": "① Creating the PO before the vendor → the vendor cannot be selected. ② Creating only basic data on the material without the purchasing view → the PO item cannot find it. "
               "③ Leaving the purchasing organization out of the info record → no price is proposed. The guided lab reproduces all three as real errors."},
 
-        {"t": "h2", "x": "4. Document chain: which document follows which"},
+        {"t": "h2", "x": "4. Business partner (BP): one entry point for vendors and customers"},
+        {"t": "p", "x": "Since S/4HANA, vendors and customers are no longer two separate master data objects — they are the same object, the **business partner (BP)**. "
+                      "One BP can be both customer and vendor, and **roles decide which data you see and may maintain**: with only `FLVN01` (MM vendor) the purchasing-org data appears; "
+                      "add `FLCU01` (SD customer) and the sales-area data appears too. The old transactions XK01/XD01/VD01 are obsolete — entering them first pops “redirecting to transaction Business Partner”."},
+        {"t": "table",
+         "head": ["Role", "Description", "Which data layer", "If it is missing"],
+         "rows": [
+             ["FLVN00", "Vendor (FI)", "Company code: reconciliation account, payment terms, payment methods, tolerance group", "MIRO then lacks the payable account data and fails with account determination"],
+             ["FLVN01", "Vendor (MM)", "Purchasing org: order currency, purchasing group, automatic PO, GR-based IV", "The vendor cannot be selected in a PO — “not maintained in purchasing org 1710”"],
+             ["FLCU00", "Customer (FI)", "Company code: reconciliation account, payment terms", "FI customer processes lack the data"],
+             ["FLCU01", "Customer (SD)", "Sales area: sales org, distribution channel, division", "The customer cannot be selected in a sales order"],
+         ]},
+        {"t": "chain",
+         "items": [
+             {"k": "Address", "t": "General data", "s": "name / address / language"},
+             {"k": "Company code", "t": "Accounting", "s": "recon. account / terms"},
+             {"k": "Purchasing", "t": "Purchasing", "s": "currency / group / switches"},
+             {"k": "Status", "t": "Blocks", "s": "central / purchasing / payment"},
+         ]},
+        {"t": "table",
+         "head": ["Data layer", "Typical fields", "Scope", "What goes wrong"],
+         "rows": [
+             ["General data (address)", "Name 1/2, search term, street, postal code, city, country, language, phone, e-mail", "The whole BP — independent of company code and purchasing org", "Renaming happens here only; with just this layer a PO fails for missing purchasing-org data"],
+             ["Company code", "Company code 1710, reconciliation account 160000, recon. account type K, payment terms 0001, tolerance group, payment methods", "This company code only", "A wrong reconciliation account gives “account determination failed” in MIRO; payment terms drive due dates and cash flow"],
+             ["Purchasing org", "Purchasing org 1710, purchasing group 001, order currency USD, incoterms FOB, automatic PO, GR-based IV", "This purchasing org only", "Missing layer → “vendor not maintained in purchasing org 1710”; the same vendor can be set up differently in another org"],
+             ["Status (blocks)", "Central block, purchasing block, payment block", "Stops new documents and payments, not existing ones", "Purchasing block stops new POs; payment block stops clearing in F-53/F110"],
+         ]},
+        {"t": "note", "kind": "warn", "b": "Three BP traps",
+         "x": "① **FLVN01 without FLVN00**: ordering works, then MIRO fails on account determination — purchasing and accounting each building half is the most common rework. "
+              "② **Treating “vendor” as a standalone object**: if a vendor cannot be found in BP, check which role and which purchasing org it has, instead of looking in XK03. "
+              "③ **Renaming at the wrong level**: the name lives in address data; there is no name field on the purchasing tab."},
+
+        {"t": "h2", "x": "5. Document chain: which document follows which"},
         {"t": "table",
          "head": ["Stage", "Transaction", "Document", "Key point", "Accounting impact"],
          "rows": [
@@ -70,7 +102,7 @@ PAGE = {
          "x": "Enter the order number in ME23N and open the Purchase Order History tab: created / received / invoiced / paid at a glance. "
               "It is the first screen to open when someone asks about status, chases a delivery or reconciles an account."},
 
-        {"t": "h2", "x": "5. Movement types: the coding of every stock action"},
+        {"t": "h2", "x": "6. Movement types: the coding of every stock action"},
         {"t": "p", "x": "A movement type decides three things: whether stock goes up or down, whether an accounting document is created, and which offsetting account is used."},
         {"t": "table",
          "head": ["Movement type", "Meaning", "Stock", "Accounting document", "Typical case"],
@@ -90,7 +122,7 @@ PAGE = {
               "501 has no PO, values the receipt at the material's standard price and posts straight to a consumption (expense) account. "
               "So 501 never creates a GR/IR balance and can never be matched in invoice verification — such deliveries are either expensed or covered by a PO created afterwards and reversed."},
 
-        {"t": "h2", "x": "6. Accounting: why a GR/IR account exists at all"},
+        {"t": "h2", "x": "7. Accounting: why a GR/IR account exists at all"},
         {"t": "p", "x": "In reality goods and invoices never arrive at the same moment. SAP uses the GR/IR (Goods Receipt / Invoice Receipt) account to record that gap: "
                       "at goods receipt it recognises a liability for goods received but not yet invoiced, and when the invoice arrives it converts that accrual into real payables."},
         {"t": "table",
@@ -104,7 +136,7 @@ PAGE = {
          "x": "① Goods received but not invoiced → GR/IR shows a credit balance (an accrual liability). ② Invoiced before receipt (requires GR-based IV to be switched off) → GR/IR shows a debit balance (a prepayment). "
               "③ At month-end, use MB5S to inspect GR/IR items that never clear, and MR11 to reclassify them if needed."},
 
-        {"t": "h2", "x": "7. Automatic account determination (OBYC): nobody keys the accounts"},
+        {"t": "h2", "x": "8. Automatic account determination (OBYC): nobody keys the accounts"},
         {"t": "p", "x": "The accounts on stock-related documents are derived by the system from transaction key + valuation class + account modifier, configured in OBYC. "
                       "That is why valuation class 3000 in the material master is not a comment field — it decides which inventory account the goods land in."},
         {"t": "table",
@@ -120,7 +152,7 @@ PAGE = {
          "x": "After any posting, note the accounting document number and open it in FB03: the line items show the posting key (PK — 40 = debit, 50 = credit), the account, the debit/credit indicator and the amount. "
               "The single biggest step for a beginner is going from \"I clicked something\" to \"these lines appeared in the books\"."},
 
-        {"t": "h2", "x": "8. Customising: the ten items to walk through before a new system goes live"},
+        {"t": "h2", "x": "9. Customising: the ten items to walk through before a new system goes live"},
         {"t": "p", "x": "Business users never touch configuration, yet eight times out of ten \"why won't my document save\" comes down to something missing here. The ten items below are in go-live order: "
                       "the first four are organisational, the middle four cover planning and goods receipt, and the last two are the accounting interface. Each one names the IMG path and who you should ask."},
         {"t": "table",
@@ -142,7 +174,7 @@ PAGE = {
               "Treat a configuration problem as master data and you will trial-and-error in MM01; treat master data as configuration and you will change something for the whole company. The test: "
               "**does a different material or vendor fail the same way** — if yes, check configuration; if only this one fails, check master data."},
 
-        {"t": "h2", "x": "9. Common misconceptions (clear these before going further)"},
+        {"t": "h2", "x": "10. Common misconceptions (clear these before going further)"},
         {"t": "ul", "cls": "fld", "items": [
             "**\"Posting a purchase order reserves stock\"** — no. A PO moves no stock; only a goods receipt (101) does.",
             "**\"Invoice verification just means typing the invoice in\"** — no. It performs a three-way match (order / goods receipt / invoice); quantities and amounts must agree and variances go through tolerance.",
